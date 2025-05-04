@@ -1,0 +1,135 @@
+[gd_scene load_steps=14 format=3 uid="uid://3icdk5iv2apg"]
+
+[ext_resource type="Script" uid="uid://clsevg7uc453u" path="res://Scripts/Levels/level.gd" id="1_ql85h"]
+[ext_resource type="Script" uid="uid://833nbb8jk22t" path="res://Scripts/Levels/BackgroundAnimations/Background-Back.gd" id="2_5id71"]
+[ext_resource type="PackedScene" uid="uid://bw7be8eu2pvwk" path="res://Scenes/Player/player.tscn" id="3_acbxh"]
+[ext_resource type="Texture2D" uid="uid://d30oenokou522" path="res://Graphics & Sounds/Backgrounds/bg-back.png" id="3_jt3el"]
+[ext_resource type="Texture2D" uid="uid://u2gh1gbl4g3e" path="res://Graphics & Sounds/Backgrounds/bg-planet.png" id="3_kmsh4"]
+[ext_resource type="Texture2D" uid="uid://k3io7ie5r42s" path="res://Graphics & Sounds/Backgrounds/bg-stars.png" id="4_fe5cn"]
+[ext_resource type="Script" uid="uid://cyrb3efjd8jl7" path="res://Scripts/Levels/BackgroundAnimations/Background-Planet.gd" id="4_ywi7f"]
+[ext_resource type="Script" uid="uid://cuqhugcco5wj5" path="res://Scripts/Levels/BackgroundAnimations/Background-Stars.gd" id="6_r1240"]
+[ext_resource type="PackedScene" uid="uid://13n1b2mwuvbm" path="res://Scenes/UI/ui.tscn" id="9_4pc15"]
+[ext_resource type="PackedScene" uid="uid://cac02qfe62xhi" path="res://Scenes/UI/pause_ui.tscn" id="10_4qpam"]
+[ext_resource type="AudioStream" uid="uid://dugtxmrhp58s7" path="res://Graphics & Sounds/Sounds/BGMusic/space-asteroids.mp3" id="10_jytj0"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_mtqtt"]
+size = Vector2(20, 1280)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_68rvr"]
+size = Vector2(720, 20)
+
+[node name="Level" type="Node2D"]
+script = ExtResource("1_ql85h")
+
+[node name="ParallaxBackground" type="ParallaxBackground" parent="."]
+
+[node name="Background-Back" type="ParallaxLayer" parent="ParallaxBackground"]
+motion_scale = Vector2(0, 0)
+motion_mirroring = Vector2(2176, 0)
+script = ExtResource("2_5id71")
+BackGroundBackSpeed = 50
+metadata/_edit_lock_ = true
+
+[node name="Sprite2D" type="Sprite2D" parent="ParallaxBackground/Background-Back"]
+texture_filter = 1
+position = Vector2(405, 640)
+scale = Vector2(8, 8)
+texture = ExtResource("3_jt3el")
+metadata/_edit_lock_ = true
+
+[node name="Background-Planet" type="ParallaxLayer" parent="ParallaxBackground"]
+motion_mirroring = Vector2(1360, 0)
+script = ExtResource("4_ywi7f")
+BackGroundPlanetSpeed = 75
+metadata/_edit_lock_ = true
+
+[node name="Sprite2D" type="Sprite2D" parent="ParallaxBackground/Background-Planet"]
+texture_filter = 1
+position = Vector2(354, 1040)
+scale = Vector2(3, 3)
+texture = ExtResource("3_kmsh4")
+metadata/_edit_lock_ = true
+
+[node name="Background-Stars" type="ParallaxLayer" parent="ParallaxBackground"]
+motion_mirroring = Vector2(0, 1360)
+script = ExtResource("6_r1240")
+BackGroundStarsSpeed = 100
+metadata/_edit_lock_ = true
+
+[node name="Sprite2D" type="Sprite2D" parent="ParallaxBackground/Background-Stars"]
+texture_filter = 1
+position = Vector2(403, 273)
+scale = Vector2(3, 3)
+texture = ExtResource("4_fe5cn")
+metadata/_edit_lock_ = true
+
+[node name="Player" parent="." instance=ExtResource("3_acbxh")]
+position = Vector2(123, 150)
+speed = 400
+acceleration = 10
+
+[node name="Borders" type="Node2D" parent="."]
+metadata/_edit_lock_ = true
+
+[node name="LeftBorder" type="StaticBody2D" parent="Borders"]
+collision_layer = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Borders/LeftBorder"]
+position = Vector2(-10, 641)
+shape = SubResource("RectangleShape2D_mtqtt")
+
+[node name="RightBorder" type="StaticBody2D" parent="Borders"]
+collision_layer = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Borders/RightBorder"]
+position = Vector2(730, 642)
+shape = SubResource("RectangleShape2D_mtqtt")
+
+[node name="TopBorder" type="StaticBody2D" parent="Borders"]
+collision_layer = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Borders/TopBorder"]
+position = Vector2(361, -10)
+shape = SubResource("RectangleShape2D_68rvr")
+
+[node name="BottomBorder" type="StaticBody2D" parent="Borders"]
+collision_layer = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Borders/BottomBorder"]
+position = Vector2(360, 1290)
+shape = SubResource("RectangleShape2D_68rvr")
+
+[node name="MeteorTimer" type="Timer" parent="."]
+wait_time = 0.25
+autostart = true
+
+[node name="Meteors" type="Node2D" parent="."]
+metadata/_edit_lock_ = true
+
+[node name="Lasers" type="Node2D" parent="."]
+metadata/_edit_lock_ = true
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(360, 640)
+
+[node name="UI" parent="." instance=ExtResource("9_4pc15")]
+
+[node name="PauseUI" parent="." instance=ExtResource("10_4qpam")]
+visible = false
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_right = 720.0
+offset_bottom = 1280.0
+
+[node name="MusicAndEffects" type="Node2D" parent="."]
+
+[node name="BGMusic" type="AudioStreamPlayer2D" parent="MusicAndEffects"]
+stream = ExtResource("10_jytj0")
+volume_db = -10.0
+autoplay = true
+
+[connection signal="laserShoot" from="Player" to="." method="_on_player_laser_shoot"]
+[connection signal="timeout" from="MeteorTimer" to="." method="_on_meteor_timer_timeout"]

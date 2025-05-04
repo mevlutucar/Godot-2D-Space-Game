@@ -1,0 +1,41 @@
+[gd_scene load_steps=5 format=3 uid="uid://bw7be8eu2pvwk"]
+
+[ext_resource type="Texture2D" uid="uid://bdnrxmgrs3adg" path="res://Graphics & Sounds/Ship/2.png" id="1_ucbc6"]
+[ext_resource type="Script" uid="uid://bdv21rqwcm3kg" path="res://Scripts/Player/player.gd" id="1_xhxa1"]
+[ext_resource type="AudioStream" uid="uid://dh02r60ckfeqg" path="res://Graphics & Sounds/Sounds/LaserShoot/shot 1.wav" id="3_r2mpf"]
+[ext_resource type="AudioStream" uid="uid://d0p07hlkvujp" path="res://Graphics & Sounds/Sounds/Player/PlayerHit.wav" id="4_keuao"]
+
+[node name="Player" type="CharacterBody2D"]
+collision_mask = 6
+script = ExtResource("1_xhxa1")
+speed = 250
+
+[node name="PlayerImage" type="Sprite2D" parent="."]
+texture_filter = 1
+scale = Vector2(3, 3)
+texture = ExtResource("1_ucbc6")
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
+position = Vector2(-0.300003, 0.147163)
+scale = Vector2(0.996652, 1.00189)
+polygon = PackedVector2Array(-9, -48, 8, -48, 16, -33, 22, -33, 21, -38, 50, -38, 50, -18, 46, -18, 47, 1, 56, 8, 56, 34, 43, 35, 40, 31, 34, 40, 30, 49, 10, 50, 7, 47, 7, 41, -5, 42, -7, 47, -13, 51, -29, 50, -38, 32, -43, 36, -56, 35, -56, 9, -47, -1, -48, -18, -50, -21, -51, -38, -23, -38, -22, -26, -12, -41)
+
+[node name="LaserPosition" type="Marker2D" parent="."]
+position = Vector2(-37, -56)
+
+[node name="LaserPosition2" type="Marker2D" parent="."]
+position = Vector2(37, -56)
+
+[node name="LaserShootTimer" type="Timer" parent="."]
+wait_time = 0.5
+one_shot = true
+
+[node name="LaserShotSound" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("3_r2mpf")
+volume_db = -20.0
+
+[node name="PlayerHitSound" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("4_keuao")
+volume_db = -10.0
+
+[connection signal="timeout" from="LaserShootTimer" to="." method="_on_laser_shoot_timer_timeout"]

@@ -1,0 +1,85 @@
+[gd_scene load_steps=12 format=3 uid="uid://1mpof0hexkoc"]
+
+[ext_resource type="Script" uid="uid://4m5otmffq46k" path="res://Scripts/Meteor/meteor.gd" id="1_x7rlv"]
+[ext_resource type="Texture2D" uid="uid://sdrt6rn8l2l2" path="res://Graphics & Sounds/Effects/Explosion/explosion.png" id="2_ltyjt"]
+[ext_resource type="AudioStream" uid="uid://bxmatdmmnfeqe" path="res://Graphics & Sounds/Sounds/Explosion/explosion.wav" id="3_0ipsq"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_aqe8m"]
+atlas = ExtResource("2_ltyjt")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_34rp7"]
+atlas = ExtResource("2_ltyjt")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_q2x8u"]
+atlas = ExtResource("2_ltyjt")
+region = Rect2(64, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_c1jlg"]
+atlas = ExtResource("2_ltyjt")
+region = Rect2(96, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3ubgm"]
+atlas = ExtResource("2_ltyjt")
+region = Rect2(128, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6skkp"]
+atlas = ExtResource("2_ltyjt")
+region = Rect2(160, 0, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_d074x"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_aqe8m")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_34rp7")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_q2x8u")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_c1jlg")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3ubgm")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6skkp")
+}],
+"loop": true,
+"name": &"explode",
+"speed": 10.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_egrn5"]
+radius = 57.6281
+
+[node name="Meteor" type="Area2D"]
+collision_layer = 2
+collision_mask = 9
+script = ExtResource("1_x7rlv")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture_filter = 1
+scale = Vector2(2.5, 2.5)
+
+[node name="ExplodeAnimation" type="AnimatedSprite2D" parent="."]
+texture_filter = 1
+scale = Vector2(2, 2)
+sprite_frames = SubResource("SpriteFrames_d074x")
+animation = &"explode"
+frame = 5
+frame_progress = 0.982079
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_egrn5")
+
+[node name="ExplosionSound" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("3_0ipsq")
+volume_db = -10.0
+
+[connection signal="area_entered" from="." to="." method="_on_area_entered"]
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

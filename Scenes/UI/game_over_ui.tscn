@@ -1,0 +1,75 @@
+[gd_scene load_steps=3 format=3 uid="uid://cofu8dy6n36dt"]
+
+[ext_resource type="Script" uid="uid://bqkqlr1t0f4fr" path="res://Scripts/UI/game_over_ui.gd" id="1_6arqs"]
+[ext_resource type="FontFile" uid="uid://d0r54wwk2faup" path="res://Graphics & Sounds/Fonts/novem___.ttf" id="1_mknr0"]
+
+[node name="GameOverUI" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_6arqs")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0.0156863, 0.0941176, 1)
+
+[node name="GameOverScoreContainer" type="CenterContainer" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -202.5
+offset_top = -70.5
+offset_right = 202.5
+offset_bottom = 70.5
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="GameOverScoreContainer"]
+layout_mode = 2
+theme_override_constants/separation = 20
+
+[node name="GameOverLabel" type="Label" parent="GameOverScoreContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("1_mknr0")
+theme_override_font_sizes/font_size = 90
+text = "GAME OVER"
+horizontal_alignment = 1
+
+[node name="YourScoreLabel" type="Label" parent="GameOverScoreContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("1_mknr0")
+theme_override_font_sizes/font_size = 45
+text = "YOUR SCORE: 0"
+horizontal_alignment = 1
+
+[node name="StartAgainMarginContainer" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -230.0
+offset_top = -46.0
+offset_right = 230.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_constants/margin_bottom = 20
+
+[node name="StartAgainLabel" type="Label" parent="StartAgainMarginContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("1_mknr0")
+theme_override_font_sizes/font_size = 30
+text = "PRESS SPACE TO START AGAIN"
+horizontal_alignment = 1
